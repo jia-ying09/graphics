@@ -93,7 +93,7 @@ public class Mario extends JComponent {
             // GAME LOGIC STARTS HERE 
             
             
-            eyeX = eyeX - 5;
+            eyeX = eyeX + 425;
             eyeHeight = eyeHeight - 20;
             
             

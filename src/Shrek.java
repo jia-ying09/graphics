@@ -8,16 +8,20 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 /**
  *
  * @author linj4653
  */
-public class Clock extends JComponent {
+public class Shrek extends JComponent {
 
     // Height and Width of our game
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
+    
+    //Title of the window
+    String title = "My Game";
 
     // sets the framerate and delay for our game
     // you just need to select an approproate framerate
@@ -25,17 +29,40 @@ public class Clock extends JComponent {
     long desiredTime = (1000) / desiredFPS;
 
 
-    // GAME VARIABLES WOULD GO HERE
-     int hourHandX = 370;
-     int hourHandY = 150;
-     int minuteHandX = 370;
-     int minuteHandY = 200;
-     int middleX = 375;
-     int middleY = 325;
-
+    // YOUR GAME VARIABLES WOULD GO HERE
+    Color uggo = new Color (58, 209, 27);
+    
 
     // GAME VARIABLES END HERE   
 
+    
+    // Constructor to create the Frame and place the panel in
+    // You will learn more about this in Grade 12 :)
+    public Shrek(){
+        // creates a windows to show my game
+        JFrame frame = new JFrame(title);
+
+        // sets the size of my game
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        // adds the game to the window
+        frame.add(this);
+
+        // sets some options and size of the window automatically
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        // shows the window to the user
+        frame.setVisible(true);
+        
+        // add listeners for keyboard and mouse
+        frame.addKeyListener(new Keyboard());
+        Mouse m = new Mouse();
+        
+        this.addMouseMotionListener(m);
+        this.addMouseWheelListener(m);
+        this.addMouseListener(m);
+    }
+    
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
     // NOTE: This is already double buffered!(helps with framerate/speed)
@@ -44,16 +71,14 @@ public class Clock extends JComponent {
         // always clear the screen first!
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
-        // GAME DRAWING GOES HERE 
-        g.setColor(Color.LIGHT_GRAY);
-        g.fillOval(200, 150, 349, 349);
-        g.setColor(Color.BLACK);
-        g.drawLine(middleX, middleY, hourHandX, hourHandY);
-        g.drawLine(middleX, middleY, minuteHandX, minuteHandY);
-        g.drawOval(200, 150, 350, 350);
-      
-        
-        
+        // GAME DRAWING GOES HERE
+        g.setColor(uggo);
+        //face
+        g.fillOval(200, 150, 250, 290);
+        //ears    
+        g.fillRect(200, 125, 25, 100);
+        g.fillOval(200, 100, 30, 60);
+        g.fillRect(425, 125, 25, 100);
         // GAME DRAWING ENDS HERE
     }
 
@@ -63,6 +88,7 @@ public class Clock extends JComponent {
     public void  preSetup(){
        // Any of your pre setup before the loop starts should go here
 
+       
     }
 
     // The main game loop
@@ -84,16 +110,6 @@ public class Clock extends JComponent {
 
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
-            //making the minute hand move
-            minuteHandY = minuteHandY + 5;
-            minuteHandX = minuteHandX + 5;
-            
-            if (minuteHandX == 300) 
-            {
-                minuteHandX = minuteHandX - 5;
-                minuteHandY = minuteHandY - 5;}
-            //making the hour hand move
-            
             
             
             // GAME LOGIC ENDS HERE 
@@ -115,38 +131,11 @@ public class Clock extends JComponent {
             };
         }
     }
+
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // creates a windows to show my game
-        JFrame frame = new JFrame("My Game");
-
-        // creates an instance of my game
-        Clock game = new Clock();
-        // sets the size of my game
-        game.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        // adds the game to the window
-        frame.add(game);
-
-        // sets some options and size of the window automatically
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        // shows the window to the user
-        frame.setVisible(true);
-        
-        // add listeners for keyboard and mouse
-        frame.addKeyListener(new Keyboard());
-        game.addMouseListener(new Mouse());
-        
-        // starts the game loop
-        game.run();
-    }
 
     // Used to implement any of the Mouse Actions
-    private static class Mouse extends MouseAdapter {
+    private class Mouse extends MouseAdapter {
         // if a mouse button has been pressed down
         @Override
         public void mousePressed(MouseEvent e){
@@ -159,6 +148,12 @@ public class Clock extends JComponent {
             
         }
         
+        // if the scroll wheel has been moved
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e){
+            
+        }
+
         // if the mouse has moved positions
         @Override
         public void mouseMoved(MouseEvent e){
@@ -167,7 +162,7 @@ public class Clock extends JComponent {
     }
     
     // Used to implements any of the Keyboard Actions
-    private static class Keyboard extends KeyAdapter{
+    private class Keyboard extends KeyAdapter{
         // if a key has been pressed down
         @Override
         public void keyPressed(KeyEvent e){
@@ -180,4 +175,17 @@ public class Clock extends JComponent {
             
         }
     }
+    
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // creates an instance of my game
+        Shrek game = new Shrek();
+                
+        // starts the game loop
+        game.run();
+    }
 }
+
