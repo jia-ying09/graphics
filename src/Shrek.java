@@ -78,7 +78,10 @@ public class Shrek extends JComponent {
         //ears    
         g.fillRect(200, 125, 25, 100);
         g.fillOval(200, 100, 30, 60);
+        g.fillOval(200, 185, 30, 60);
         g.fillRect(425, 125, 25, 100);
+        g.fillOval(425, 100, 30, 60);
+        g.fillOval(420, 185, 30, 60);
         // GAME DRAWING ENDS HERE
     }
 
