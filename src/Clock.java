@@ -85,10 +85,11 @@ public class Clock extends JComponent {
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
             //making the minute hand move
+            
             minuteHandY = minuteHandY + 5;
             minuteHandX = minuteHandX + 5;
             
-            if (minuteHandX == 300) 
+            if (minuteHandX < 300) 
             {
                 minuteHandX = minuteHandX - 5;
                 minuteHandY = minuteHandY - 5;}

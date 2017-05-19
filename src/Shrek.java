@@ -19,26 +19,24 @@ public class Shrek extends JComponent {
     // Height and Width of our game
     static final int WIDTH = 800;
     static final int HEIGHT = 600;
-    
     //Title of the window
     String title = "My Game";
-
     // sets the framerate and delay for our game
     // you just need to select an approproate framerate
     long desiredFPS = 60;
     long desiredTime = (1000) / desiredFPS;
-
-
     // YOUR GAME VARIABLES WOULD GO HERE
-    Color uggo = new Color (58, 209, 27);
-    
+    Color uggo = new Color(58, 209, 27);
+    Color eyes = Color.BLACK;
+    int leftAlienX = 250;
+    int alienY = 235;
+    int rightAlienX = 350;
+    int alienDirection = 1;
 
     // GAME VARIABLES END HERE   
-
-    
     // Constructor to create the Frame and place the panel in
     // You will learn more about this in Grade 12 :)
-    public Shrek(){
+    public Shrek() {
         // creates a windows to show my game
         JFrame frame = new JFrame(title);
 
@@ -53,16 +51,16 @@ public class Shrek extends JComponent {
         frame.pack();
         // shows the window to the user
         frame.setVisible(true);
-        
+
         // add listeners for keyboard and mouse
         frame.addKeyListener(new Keyboard());
         Mouse m = new Mouse();
-        
+
         this.addMouseMotionListener(m);
         this.addMouseWheelListener(m);
         this.addMouseListener(m);
     }
-    
+
     // drawing of the game happens in here
     // we use the Graphics object, g, to perform the drawing
     // NOTE: This is already double buffered!(helps with framerate/speed)
@@ -75,6 +73,7 @@ public class Shrek extends JComponent {
         g.setColor(uggo);
         //face
         g.fillOval(200, 150, 250, 290);
+
         //ears    
         g.fillRect(200, 125, 25, 100);
         g.fillOval(200, 100, 30, 60);
@@ -82,16 +81,21 @@ public class Shrek extends JComponent {
         g.fillRect(425, 125, 25, 100);
         g.fillOval(425, 100, 30, 60);
         g.fillOval(420, 185, 30, 60);
+
+        g.setColor(eyes);
+        //eyes
+        g.fillOval(leftAlienX, alienY, 50, 75);
+        g.fillOval(rightAlienX, alienY, 50, 75);
+
+        //mouth
+        g.fillArc(290, 350, 75, 50, 150, 250);
         // GAME DRAWING ENDS HERE
     }
 
-
     // This method is used to do any pre-setup you might need to do
     // This is run before the game loop begins!
-    public void  preSetup(){
-       // Any of your pre setup before the loop starts should go here
-
-       
+    public void preSetup() {
+        // Any of your pre setup before the loop starts should go here
     }
 
     // The main game loop
@@ -113,8 +117,29 @@ public class Shrek extends JComponent {
 
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
+            if (leftAlienX < WIDTH - 25) {
+                leftAlienX = leftAlienX - 1;
+                alienY = alienY - 1;
+            }
             
+            if (rightAlienX < WIDTH - 25) {
+                rightAlienX = rightAlienX - 1;
+                alienY = alienY - 1;
+            }
             
+            if (leftAlienX > - 25) {
+                leftAlienX = leftAlienX + 1;
+                alienY = alienY + 1;
+            }
+            
+            /*   while (true){
+             eyes = Color.BLACK;
+             eyes = Color.RED;
+             eyes = Color.CYAN;
+              */
+
+
+
             // GAME LOGIC ENDS HERE 
             // update the drawing (calls paintComponent)
             repaint();
@@ -135,60 +160,52 @@ public class Shrek extends JComponent {
         }
     }
 
-    
-
     // Used to implement any of the Mouse Actions
     private class Mouse extends MouseAdapter {
         // if a mouse button has been pressed down
+
         @Override
-        public void mousePressed(MouseEvent e){
-            
+        public void mousePressed(MouseEvent e) {
         }
-        
+
         // if a mouse button has been released
         @Override
-        public void mouseReleased(MouseEvent e){
-            
+        public void mouseReleased(MouseEvent e) {
         }
-        
+
         // if the scroll wheel has been moved
         @Override
-        public void mouseWheelMoved(MouseWheelEvent e){
-            
+        public void mouseWheelMoved(MouseWheelEvent e) {
         }
 
         // if the mouse has moved positions
         @Override
-        public void mouseMoved(MouseEvent e){
-            
+        public void mouseMoved(MouseEvent e) {
         }
     }
-    
+
     // Used to implements any of the Keyboard Actions
-    private class Keyboard extends KeyAdapter{
+    private class Keyboard extends KeyAdapter {
         // if a key has been pressed down
+
         @Override
-        public void keyPressed(KeyEvent e){
-            
+        public void keyPressed(KeyEvent e) {
         }
-        
+
         // if a key has been released
         @Override
-        public void keyReleased(KeyEvent e){
-            
+        public void keyReleased(KeyEvent e) {
         }
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // creates an instance of my game
         Shrek game = new Shrek();
-                
+
         // starts the game loop
         game.run();
     }
 }
-
