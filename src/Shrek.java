@@ -137,7 +137,7 @@ public class Shrek extends JComponent {
              eyes = Color.RED;
              eyes = Color.CYAN;
               */
-
+            leftAlienX = leftAlienX + alienDirection *5;
 
 
             // GAME LOGIC ENDS HERE 
