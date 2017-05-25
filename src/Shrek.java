@@ -26,8 +26,13 @@ public class Shrek extends JComponent {
     long desiredFPS = 60;
     long desiredTime = (1000) / desiredFPS;
     // YOUR GAME VARIABLES WOULD GO HERE
+    //creating a random colour
+    int R = (int) (Math.random() * 256);
+    int B = (int) (Math.random() * 256);
+    int G = (int) (Math.random() * 256);
+    Color random = new Color(R, B, G);
+    //creating a dark green colour
     Color uggo = new Color(58, 209, 27);
-    Color eyes = Color.BLACK;
     int leftAlienX = 250;
     int alienY = 235;
     int rightAlienX = 350;
@@ -82,12 +87,13 @@ public class Shrek extends JComponent {
         g.fillOval(425, 100, 30, 60);
         g.fillOval(420, 185, 30, 60);
 
-        g.setColor(eyes);
+        g.setColor(random);
         //eyes
         g.fillOval(leftAlienX, alienY, 50, 75);
         g.fillOval(rightAlienX, alienY, 50, 75);
 
         //mouth
+        g.setColor(Color.BLACK);
         g.fillArc(290, 350, 75, 50, 150, 250);
         // GAME DRAWING ENDS HERE
     }
@@ -117,36 +123,35 @@ public class Shrek extends JComponent {
 
             // all your game rules and move is done in here
             // GAME LOGIC STARTS HERE 
-            if (leftAlienX < WIDTH - 25) {
-                leftAlienX = leftAlienX - 1;
-                alienY = alienY - 1;
-            }
-            
-            if (rightAlienX < WIDTH - 25) {
-                rightAlienX = rightAlienX - 1;
-                alienY = alienY - 1;
-            }
-            
-            if (leftAlienX > - 25) {
-                leftAlienX = leftAlienX + 1;
-                alienY = alienY + 1;
-            }
-            
-            /*   while (true){
-             eyes = Color.BLACK;
-             eyes = Color.RED;
-             eyes = Color.CYAN;
-              */
-            leftAlienX = leftAlienX + alienDirection *5;
 
+            //   leftAlienX = leftAlienX + alienDirection *5;
+
+
+            if (rightAlienX > 200) {
+                rightAlienX = rightAlienX - 1;
+            
+            }
+             if (rightAlienX ==  400) {
+                alienDirection = + 1;
+            }
+
+            if (leftAlienX < 400 ) {
+                leftAlienX = leftAlienX + 1;
+             
+            }
+            
+            /* if (leftAlienX > 400) {
+                 alienDirection = 1;
+            } */
 
             // GAME LOGIC ENDS HERE 
             // update the drawing (calls paintComponent)
             repaint();
-
             // SLOWS DOWN THE GAME BASED ON THE FRAMERATE ABOVE
             // USING SOME SIMPLE MATH
             deltaTime = System.currentTimeMillis() - startTime;
+
+
             try {
                 if (deltaTime > desiredTime) {
                     //took too much time, don't wait
@@ -184,7 +189,7 @@ public class Shrek extends JComponent {
         }
     }
 
-    // Used to implements any of the Keyboard Actions
+// Used to implements any of the Keyboard Actions
     private class Keyboard extends KeyAdapter {
         // if a key has been pressed down
 
